@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для тебе ❤️</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.page{
+    display:none;
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    width:90%;
+    max-width:600px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.active{
+    display:block;
+}
+
+h1{
+    color:#ff4f7b;
+}
+
+button{
+    padding:12px 25px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.yes{
+    background:#4CAF50;
+    color:white;
+}
+
+.no{
+    background:#f44336;
+    color:white;
+}
+
+.option{
+    background:#ff4f7b;
+    color:white;
+}
+
+input{
+    padding:10px;
+    font-size:16px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+</style>
+</head>
+<body>
+
+<!-- Сторінка 1 -->
+<div class="page active" id="page1">
+    <h1>Привіт ❤️</h1>
+    <p>Мені дуже подобається спілкуватися з тобою 😊</p>
+    <p>Чи погодишся ти піти зі мною на зустріч?</p>
+
+    <button class="yes" onclick="nextPage(2)">Так 💖</button>
+    <button class="no" onclick="decline()">Ні 😢</button>
+</div>
+
+<!-- Сторінка 2 -->
+<div class="page" id="page2">
+    <h1>Обери дату 📅</h1>
+    <p>Коли тобі буде зручно?</p>
+
+    <input type="date" id="date">
+    <br><br>
+
+    <button class="option" onclick="saveDate()">Далі ➜</button>
+</div>
+
+<!-- Сторінка 3 -->
+<div class="page" id="page3">
+    <h1>Що будемо їсти? 🍕</h1>
+
+    <button class="option" onclick="saveFood('Суші 🍣')">Суші 🍣</button>
+    <button class="option" onclick="saveFood('Піца 🍕')">Піца 🍕</button>
+    <button class="option" onclick="saveFood('Бургери 🍔')">Бургери 🍔</button>
+    <button class="option" onclick="saveFood('Паста 🍝')">Паста 🍝</button>
+</div>
+
+<!-- Сторінка 4 -->
+<div class="page" id="page4">
+    <h1>Готово ❤️</h1>
+
+    <p id="summary"></p>
+
+    <hr>
+
+    <p>
+        Я не вмію нормально писати такі речі,
+        тому вирішив написати для тебе цілий сайт 😊❤️
+    </p>
+</div>
+
+<script>
+
+let selectedDate = "";
+let selectedFood = "";
+
+function nextPage(page){
+    document.querySelectorAll(".page").forEach(el=>{
+        el.classList.remove("active");
+    });
+
+    document.getElementById("page"+page).classList.add("active");
+}
+
+function decline(){
+    document.getElementById("page1").innerHTML =
+    "<h1>😢</h1><p>Шкода, але дякую за чесну відповідь ❤️</p>";
+}
+
+function saveDate(){
+    selectedDate = document.getElementById("date").value;
+
+    if(!selectedDate){
+        alert("Будь ласка, обери дату 😊");
+        return;
+    }
+
+    nextPage(3);
+}
+
+function saveFood(food){
+    selectedFood = food;
+
+    document.getElementById("summary").innerHTML =
+    "Отже, наша зустріч запланована на <b>" +
+    selectedDate +
+    "</b><br><br>І ми будемо їсти: <b>" +
+    selectedFood +
+    "</b> 😋";
+
+    nextPage(4);
+}
+
+</script>
+
+</body>
+</html>
